@@ -32,9 +32,9 @@ const Header = () => {
             </div>
           </Link>
         </button>
-        <button className="absolute top-4 right-4" onClick={toggleMode}>
+        {/* <button className="absolute top-4 right-4" onClick={toggleMode}>
           {mode === "dark" ? <Moon /> : <Sun />}
-        </button>
+        </button> */}
       </div>
     </>
   );

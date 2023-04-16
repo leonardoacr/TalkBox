@@ -3,14 +3,20 @@ import LoginForm from "@/components/index/LoginForm";
 import { Moon, Sun } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../store/themeSlice";
+
 import io from "socket.io-client";
+import { RootState } from "@/store/store";
 
 export default function Home() {
   const [connectivityStatus, setConnectivityStatus] =
     useState<string>("DISCONNECTED");
 
   const [data, setData] = useState<number>(10);
-  const [mode, setMode] = useState("dark");
+  // const [mode, setMode] = useState("dark");
+  const mode = useSelector((state: RootState) => state.theme.mode);
+  const dispatch = useDispatch();
 
   const router = useRouter();
 
@@ -21,7 +27,8 @@ export default function Home() {
   const toggleMode = () => {
     const body = document.querySelector("body");
     const inputs = document.querySelectorAll("input");
-    setMode(mode === "dark" ? "light" : "dark");
+    // setMode(mode === "dark" ? "light" : "dark");
+    dispatch(toggleTheme());
     body?.classList.toggle("dark");
     inputs?.forEach((input) => {
       input.classList.toggle("dark");
@@ -46,14 +53,14 @@ export default function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    if (
-      window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      setMode("light");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (
+  //     window.matchMedia &&
+  //     window.matchMedia("(prefers-color-scheme: dark)").matches
+  //   ) {
+  //     setMode("light");
+  //   }
+  // }, []);
 
   return (
     <div className={`flex ${mode === "dark" ? "dark" : "light"}`}>
