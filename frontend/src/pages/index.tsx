@@ -25,14 +25,7 @@ export default function Home() {
   };
 
   const toggleMode = () => {
-    const body = document.querySelector("body");
-    const inputs = document.querySelectorAll("input");
-    // setMode(mode === "dark" ? "light" : "dark");
     dispatch(toggleTheme());
-    body?.classList.toggle("dark");
-    inputs?.forEach((input) => {
-      input.classList.toggle("dark");
-    });
   };
 
   useEffect(() => {
