@@ -1,5 +1,6 @@
 import Connectivity from "@/components/Connectivity";
 import LoginForm from "@/components/index/LoginForm";
+import { Moon, Sun } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
@@ -9,11 +10,22 @@ export default function Home() {
     useState<string>("DISCONNECTED");
 
   const [data, setData] = useState<number>(10);
+  const [mode, setMode] = useState("dark");
 
   const router = useRouter();
 
   const handleLogin = () => {
     router.push("/chat");
+  };
+
+  const toggleMode = () => {
+    const body = document.querySelector("body");
+    const inputs = document.querySelectorAll("input");
+    setMode(mode === "dark" ? "light" : "dark");
+    body?.classList.toggle("dark");
+    inputs?.forEach((input) => {
+      input.classList.toggle("dark");
+    });
   };
 
   useEffect(() => {
@@ -34,10 +46,22 @@ export default function Home() {
     };
   }, []);
 
+  useEffect(() => {
+    if (
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      setMode("light");
+    }
+  }, []);
+
   return (
-    <div className="flex">
+    <div className={`flex ${mode === "dark" ? "dark" : "light"}`}>
       <div className="flex w-screen h-screen justify-center items-center">
         <div className="rounded border border-slate-600 p-10 shadow-lg shadow-purple-900 relative lg:w-1/4 w-11/12">
+          <button className="absolute top-4 right-4" onClick={toggleMode}>
+            {mode === "dark" ? <Moon /> : <Sun />}
+          </button>
           <h1 className="text-center lg:text-6xl text-4xl mb-4">
             <span className="text-sky-600 font-bold">Talk</span>
             <span className="text-purple-800 font-bold">Box</span>

@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body.light {
+  color: rgb(0, 0, 0);
+  background: linear-gradient(to bottom, transparent, rgb(255, 255, 255))
+    rgb(214, 219, 220);
+}
+
+input.light {
+  background-color: rgb(0, 0, 0);
+  color: #1a202c;
+}

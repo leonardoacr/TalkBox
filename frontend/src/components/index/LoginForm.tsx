@@ -11,7 +11,7 @@ const LoginForm = ({ onSubmit }: { onSubmit: () => void }) => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="block space-y-3 text-zinc-50">
+      <div className="block space-y-3">
         <InputText
           label={"Username"}
           id={"username"}
