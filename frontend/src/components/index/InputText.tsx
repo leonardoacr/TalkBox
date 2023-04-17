@@ -18,7 +18,8 @@ const InputText = (props: InputTextProps) => {
         id={props.id}
         name={props.id}
         required
-        className="border border-sky-900 px-4 py-1.5 rounded-lg w-full focus:border-sky-600 focus:outline-none"
+        className="border border-sky-900 px-4 py-1.5 rounded-lg w-full 
+        focus:border-sky-600 focus:outline-none"
         value={props.value}
         onChange={props.onChange}
       />

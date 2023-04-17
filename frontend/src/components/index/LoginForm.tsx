@@ -1,3 +1,4 @@
+import { generateKey } from "@/helpers/generateKey";
 import { useState, ChangeEvent } from "react";
 import InputText from "./InputText";
 
@@ -5,10 +6,16 @@ const LoginForm = ({ onSubmit }: { onSubmit: () => void }) => {
   const [username, setUsername] = useState("");
   const [key, setKey] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     onSubmit();
   };
+
+  const handleGenerateKey = (): void => {
+    const key = generateKey();
+    setKey(key);
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="block space-y-3">
@@ -29,12 +36,21 @@ const LoginForm = ({ onSubmit }: { onSubmit: () => void }) => {
           }
         />
         <div className="w-full flex justify-center">
-          <button
-            type="submit"
-            className="bg-purple-800 hover:bg-purple-700  text-zinc-50  py-1.5 px-4 w-full border border-gray-800 rounded shadow"
-          >
-            START CHAT
-          </button>
+          <div className="block w-full">
+            <button
+              type="button"
+              className="bg-sky-800 mb-2 hover:bg-sky-700  text-zinc-50  py-1.5 px-4 w-full border border-gray-800 rounded shadow"
+              onClick={handleGenerateKey}
+            >
+              GENERATE KEY
+            </button>
+            <button
+              type="submit"
+              className="bg-purple-800 hover:bg-purple-700  text-zinc-50  py-1.5 px-4 w-full border border-gray-800 rounded shadow"
+            >
+              START CHAT
+            </button>
+          </div>
         </div>
       </div>
     </form>

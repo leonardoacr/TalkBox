@@ -35,7 +35,7 @@ const InputChat = ({
       <div className="flex mr-4 w-full items-center">
         <div className="flex items-center w-11/12 sm:w-10/12 h-full mx-auto">
           <div className="flex-grow mr-4">
-            <div className="border-[1.5px] border-purple-800/80 rounded-full shadow-md flex items-center">
+            <div className="border-[1.5px] border-sky-800/80 rounded-full shadow-md flex items-center">
               <input
                 className="rounded-full w-full px-4 py-4 text-neutral-700 leading-tight focus:outline-none"
                 type="text"
