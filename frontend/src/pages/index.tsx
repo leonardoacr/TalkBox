@@ -14,7 +14,6 @@ export default function Home() {
     useState<string>("DISCONNECTED");
 
   const [data, setData] = useState<number>(10);
-  // const [mode, setMode] = useState("dark");
   const mode = useSelector((state: RootState) => state.theme.mode);
   const dispatch = useDispatch();
 
@@ -29,34 +28,22 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const socket = io("http://localhost:8000");
-
-    socket.on("connect", () => {
-      console.log("Socket.IO connected");
-      setConnectivityStatus("STABLE");
-    });
-
-    socket.on("randomData", (data: any) => {
-      const randomNumber = parseInt(data.randomNumber);
-      setData(randomNumber);
-    });
-
-    return () => {
-      socket.close();
-    };
+    // const socket = io("http://localhost:8000");
+    // socket.on("connect", () => {
+    //   console.log("Socket.IO connected");
+    //   setConnectivityStatus("STABLE");
+    // });
+    // socket.on("randomData", (data: any) => {
+    //   const randomNumber = parseInt(data.randomNumber);
+    //   setData(randomNumber);
+    // });
+    // return () => {
+    //   socket.close();
+    // };
   }, []);
 
-  // useEffect(() => {
-  //   if (
-  //     window.matchMedia &&
-  //     window.matchMedia("(prefers-color-scheme: dark)").matches
-  //   ) {
-  //     setMode("light");
-  //   }
-  // }, []);
-
   return (
-    <div className={`flex ${mode === "dark" ? "dark" : "light"}`}>
+    <div className={`flex `}>
       <div className="flex w-screen h-screen justify-center items-center">
         <div className="rounded border border-slate-600 p-10 shadow-lg shadow-purple-900 relative lg:w-1/4 w-11/12">
           <button className="absolute top-4 right-4" onClick={toggleMode}>

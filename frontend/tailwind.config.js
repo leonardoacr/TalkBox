@@ -8,7 +8,9 @@ module.exports = {
   plugins: [],
   theme: {
     fontFamily: {
+      //  sans: ['Montserrat', 'Helvetica', 'Arial', 'sans-serif'],
       sans: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+      // sans: ['"Google Sans"', 'Roboto', 'Montserrat', 'Arial', 'sans-serif'],
     },
   },
 }

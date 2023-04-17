@@ -27,7 +27,7 @@ const Menu = () => {
         </svg>
       </button>
       <div
-        className={`fixed left-0 top-0 h-screen w-64 transform bg-gray-900 transition-all duration-300 ${
+        className={`fixed left-0 top-0 h-screen w-64 transform bg-zinc-900 transition-all duration-300 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
