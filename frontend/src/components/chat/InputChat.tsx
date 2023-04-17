@@ -1,8 +1,12 @@
 import { SetStateAction, useState } from "react";
 import { Send } from "lucide-react";
 
-const InputChat = () => {
-  const [message, setMessage] = useState("");
+const InputChat = ({
+  onSendMessage,
+}: {
+  onSendMessage: (message: { id: number; message: string }) => void;
+}) => {
+  const [message, setMessage] = useState<any>();
 
   const handleChange = (event: {
     target: { value: SetStateAction<string> };
@@ -11,7 +15,12 @@ const InputChat = () => {
   };
 
   const handleSend = () => {
-    console.log(message);
+    const newMessage = {
+      id: Date.now(),
+      message,
+    };
+    console.log(newMessage);
+    onSendMessage(newMessage);
     setMessage("");
   };
 

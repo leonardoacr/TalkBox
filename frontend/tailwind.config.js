@@ -5,7 +5,14 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx}',
     './src/app/**/*.{js,ts,jsx,tsx}',
   ],
-  plugins: [],
+  variants: {
+    extend: {
+      scrollbar: ['rounded']
+    }
+  },
+  plugins: [
+    require('tailwind-scrollbar')({ nocompatible: true }),
+  ],
   theme: {
     fontFamily: {
       //  sans: ['Montserrat', 'Helvetica', 'Arial', 'sans-serif'],

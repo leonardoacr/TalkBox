@@ -10,7 +10,7 @@ const Menu = () => {
   return (
     <div>
       <button
-        className="fixed left-0 top-0 z-50 mt-1 rounded-r-lg p-4 text-white focus:outline-none"
+        className="absolute left-0 top-0 p-5 z-50  rounded-r-lg  text-white focus:outline-none"
         onClick={toggleMenu}
       >
         <svg
