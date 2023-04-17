@@ -9,14 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
 const Header = () => {
-  //   const router = useRouter();
+  const router = useRouter();
 
-  //   const routes = [
-  //     { name: "Home", path: "/" },
-  //     { name: "Dashboards", path: "/dashboards" },
-  //     { name: "Graph", path: "/graph" },
-  //     { name: "About", path: "/about" },
-  //   ];
+  const routes = [
+    { name: "Login", path: "/" },
+    { name: "Menu", path: "/chat" },
+    { name: "About", path: "/about" },
+  ];
 
   const mode = useSelector((state: RootState) => state.theme.mode);
   const dispatch = useDispatch();
@@ -41,12 +40,25 @@ const Header = () => {
             </Link>
           </button>
           <button className="absolute top-4 right-4" onClick={toggleMode}>
-            {mode === "dark" ? (
-              <Moon className="text-white" />
-            ) : (
-              <Sun className="text-white" />
-            )}
+            {mode === "dark" ? <Moon className="" /> : <Sun className="" />}
           </button>
+        </div>
+        {/* <hr className="mt-16 border-t border-gray-600" /> */}
+        <div
+          className="flex h-10 items-center justify-center
+       bg-background-header text-gray-400"
+        >
+          {routes.map((route) => (
+            <Link key={route.path} href={route.path}>
+              <span
+                className={`mx-2 cursor-pointer font-bold ${
+                  router.pathname === route.path ? "text-purple-700" : ""
+                }`}
+              >
+                {route.name}
+              </span>
+            </Link>
+          ))}
         </div>
       </div>
     </>
@@ -54,6 +66,3 @@ const Header = () => {
 };
 
 export default Header;
-function dispatch(arg0: { payload: undefined; type: "theme/toggleTheme" }) {
-  throw new Error("Function not implemented.");
-}

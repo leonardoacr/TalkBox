@@ -55,7 +55,7 @@ const MessagesChat: React.FC<MessagesChatProps> = ({ messages, username }) => {
           }`}
         >
           <div className="flex">
-            <span className="text-zinc-50 font-semibold">
+            <span className="font-semibold">
               {message.received ? message.username : username}
             </span>
             <Webhook className="text-purple-600 pl-2" />
@@ -65,9 +65,7 @@ const MessagesChat: React.FC<MessagesChatProps> = ({ messages, username }) => {
           </div>
           <div
             className={`min-w-1/4 px-4 rounded-lg py-2 break-words ${
-              message.received
-                ? "bg-purple-900/40 text-zinc-50"
-                : "bg-sky-800/40"
+              message.received ? "bg-purple-900/40 " : "bg-sky-800/40"
             }`}
           >
             <span>{message.message}</span>

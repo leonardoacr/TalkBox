@@ -17,7 +17,7 @@ const Chat: React.FC<ChatProps> = () => {
     <div className="flex flex-col h-screen">
       <Header />
       <div className="flex-grow">
-        <div className="h-28 pt-1 pl-4 border justify-center items-center w-full  border-neutral-700">
+        <div className="h-28 pt-1 pl-4 border justify-center items-center w-full  border-neutral-700 border-x-0">
           <HeaderChat />
         </div>
         <div className="mx-4 sm:mx-8 md:mx-16 lg:mx-32 xl:mx-96 ">

@@ -1,3 +1,4 @@
+import { MenuIcon } from "lucide-react";
 import { useState } from "react";
 
 const Menu = () => {
@@ -10,21 +11,10 @@ const Menu = () => {
   return (
     <div>
       <button
-        className="absolute left-0 top-0 p-5 z-50  rounded-r-lg  text-white focus:outline-none"
+        className="absolute left-0 top-0 p-5 z-50 rounded-r-lg  focus:outline-none"
         onClick={toggleMenu}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          stroke="currentColor"
-          strokeWidth="1"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="h-6 w-6"
-        >
-          <path d="M3 12h18M3 6h18M3 18h18" />
-        </svg>
+        <MenuIcon />
       </button>
       <div
         className={`fixed left-0 top-0 h-screen w-64 transform bg-zinc-900 transition-all duration-300 ${
