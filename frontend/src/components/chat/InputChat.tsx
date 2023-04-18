@@ -31,7 +31,7 @@ const InputChat = ({
   }
 
   return (
-    <div className="flex h-full w-11/12 items-center sm:w-10/12">
+    <div className="sm:w- flex h-full w-full items-center ">
       <div className="mr-4 flex w-full items-center">
         <div className="mx-auto flex h-full w-11/12 items-center sm:w-10/12">
           <div className="mr-4 flex-grow">

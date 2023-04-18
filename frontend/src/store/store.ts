@@ -2,9 +2,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import themeReducer from "./themeSlice";
+import isDesktopReducer from "./isDesktopSlice";
 
 const rootReducer = combineReducers({
     theme: themeReducer,
+    isDesktop: isDesktopReducer,
     // Add other reducers here
 });
 

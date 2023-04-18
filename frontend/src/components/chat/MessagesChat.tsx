@@ -1,22 +1,25 @@
-import { Webhook } from "lucide-react";
-import { format } from "date-fns";
-import React, { useEffect, useState } from "react";
+import { Webhook } from "lucide-react"
+import { format } from "date-fns"
+import React, { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "@/store/store"
 
 export type Message = {
-  id: number;
-  message: string;
-  received?: boolean;
-  receivedAt?: Date;
-  username?: string;
-};
+  id: number
+  message: string
+  received?: boolean
+  receivedAt?: Date
+  username?: string
+}
 
 type MessagesChatProps = {
-  messages: Message[];
-  username: string;
-};
+  messages: Message[]
+  username: string
+}
 
 const MessagesChat: React.FC<MessagesChatProps> = ({ messages, username }) => {
-  const [receivedMessages, setReceivedMessages] = useState<Message[]>([]);
+  const [receivedMessages, setReceivedMessages] = useState<Message[]>([])
+  const isDesktop = useSelector((state: RootState) => state.isDesktop.value)
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,54 +29,68 @@ const MessagesChat: React.FC<MessagesChatProps> = ({ messages, username }) => {
         received: true,
         receivedAt: new Date(),
         username: "Sender",
-      };
-      setReceivedMessages([...receivedMessages, newMessage]);
-    }, 3000);
+      }
+      setReceivedMessages([...receivedMessages, newMessage])
+    }, 3000)
 
-    return () => clearInterval(interval);
-  }, [messages, receivedMessages]);
+    return () => clearInterval(interval)
+  }, [messages, receivedMessages])
 
   const allMessages = [...messages, ...receivedMessages].sort((a, b) => {
     // Sort the messages based on the timestamp they were received
     if (a.receivedAt && b.receivedAt) {
-      return b.receivedAt.getTime() - a.receivedAt.getTime();
+      return b.receivedAt.getTime() - a.receivedAt.getTime()
     } else {
-      return b.id - a.id; // If timestamps are missing, sort by ID
+      return b.id - a.id // If timestamps are missing, sort by ID
     }
-  });
+  })
 
   return (
     <div
-      className="overflow-y-auto flex-grow px-4 flex flex-col-reverse scrollbar-thin
-     scrollbar-thumb-purple-500 scrollbar-track-gray-700 rounded scrollbar-thumb-rounded"
+      className={`flex flex-grow flex-col-reverse overflow-y-auto rounded px-2
+     ${
+       isDesktop
+         ? "scrollbar-thin scrollbar-track-gray-700 scrollbar-thumb-purple-500 scrollbar-thumb-rounded"
+         : "scrollbar-none"
+     }`}
     >
-      {allMessages.map((message) => (
-        <div
-          key={message.id}
-          className={`flex flex-col mb-2 w-96 ${
-            message.received ? "ml-4" : "mr-4 self-end"
-          }`}
-        >
-          <div className="flex">
-            <span className="font-semibold">
-              {message.received ? message.username : username}
-            </span>
-            <Webhook className="text-purple-600 pl-2" />
-            <span className="text-gray-500 pl-2 text-sm justify-center pt-1">
-              {format(message.id, "MMMM dd hh:mm aaaa")}
-            </span>
-          </div>
-          <div
-            className={`min-w-1/4 px-4 rounded-lg py-2 break-words ${
-              message.received ? "bg-purple-900/40 " : "bg-sky-800/40"
-            }`}
-          >
-            <span>{message.message}</span>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-};
+      {allMessages.map((message) => {
+        // Set the maximum width of the message based on its length
+        const maxWidth = isDesktop
+          ? Math.min(message.message.length * 15, (2 / 3) * 700)
+          : Math.min(message.message.length * 10, (2 / 3) * 900)
 
-export default MessagesChat;
+        const minWidth = isDesktop ? "10rem" : "12rem"
+
+        return (
+          <div
+            key={message.id}
+            className={`mb-2 flex flex-col ${
+              message.received ? "ml-4" : "mr-4 self-end"
+            }`}
+            style={{ minWidth, maxWidth }}
+          >
+            <div className="flex">
+              <span className="font-semibold">
+                {message.received ? message.username : username}
+              </span>
+              <Webhook className="pl-2 text-purple-600" />
+              <span className="justify-center pl-2 pt-1 text-sm text-gray-500">
+                {format(message.id, "MMMM dd hh:mm aaaa")}
+              </span>
+            </div>
+            <div
+              className={`break-words rounded-lg px-4 py-2 ${
+                message.received ? "bg-purple-900/40" : "bg-sky-800/40"
+              }`}
+            >
+              <span>{message.message}</span>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
+export default MessagesChat
