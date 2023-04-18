@@ -15,6 +15,7 @@ const themeSlice = createSlice({
     reducers: {
         toggleTheme(state) {
             state.mode = state.mode === "light" ? "dark" : "light";
+            console.log('toggleTheme? ' + state.mode)
             localStorage.setItem("theme", state.mode);
             const body = document.querySelector("body");
             const inputs = document.querySelectorAll("input");
@@ -36,18 +37,23 @@ const themeSlice = createSlice({
         },
         setTheme(state, action) {
             state.mode = action.payload;
+            console.log('set theme?', state.mode)
             localStorage.setItem("theme", action.payload);
             const body = document.querySelector("body");
             const inputs = document.querySelectorAll("input");
             if (action.payload === "dark") {
+                body?.classList.remove("light");
                 body?.classList.add("dark");
                 inputs?.forEach((input) => {
+                    input.classList.remove("light");
                     input.classList.add("dark");
                 });
             } else {
                 body?.classList.remove("dark");
+                body?.classList.add("light");
                 inputs?.forEach((input) => {
                     input.classList.remove("dark");
+                    input.classList.add("light");
                 });
             }
         }

@@ -1,38 +1,42 @@
-import Header from "@/components/Header"
-import MessagesChat, { Message } from "@/components/chat/MessagesChat"
-import InputChat from "@/components/chat/InputChat"
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { setIsDesktop } from "@/store/isDesktopSlice"
-import { RootState } from "@/store/store"
-import HeaderChat from "@/components/chat/HeaderChat"
+import Header from "@/components/Header";
+import MessagesChat, { Message } from "@/components/chat/MessagesChat";
+import InputChat from "@/components/chat/InputChat";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setIsDesktop } from "@/store/isDesktopSlice";
+import { RootState } from "@/store/store";
+import HeaderChat from "@/components/chat/HeaderChat";
+import { setTheme } from "@/store/themeSlice";
 
 interface ChatProps {}
 
 const Chat: React.FC<ChatProps> = () => {
-  const [sentMessages, setSentMessages] = useState<Message[]>([])
-  const isDesktop = useSelector((state: RootState) => state.isDesktop.value)
+  const [sentMessages, setSentMessages] = useState<Message[]>([]);
+  const isDesktop = useSelector((state: RootState) => state.isDesktop.value);
+  const mode = useSelector((state: RootState) => state.theme.mode);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(setTheme(mode));
+
     const handleResize = (): void => {
-      const isDesktop = window.innerWidth >= 768 // 768 is the breakpoint for a small tablet
-      dispatch(setIsDesktop(isDesktop))
-    }
+      const isDesktop = window.innerWidth >= 768; // 768 is the breakpoint for a small tablet
+      dispatch(setIsDesktop(isDesktop));
+    };
 
-    window.addEventListener("resize", handleResize)
+    window.addEventListener("resize", handleResize);
 
-    handleResize()
+    handleResize();
 
     return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [dispatch])
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [dispatch, mode]);
 
   const handleSendMessage = (message: Message) => {
-    setSentMessages([...sentMessages, message])
-  }
+    setSentMessages([...sentMessages, message]);
+  };
 
   return (
     <div className="flex h-screen flex-col">
@@ -59,7 +63,7 @@ const Chat: React.FC<ChatProps> = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Chat
+export default Chat;

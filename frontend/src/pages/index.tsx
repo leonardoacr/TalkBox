@@ -1,57 +1,57 @@
-import Connectivity from "@/components/Connectivity";
-import LoginForm from "@/components/Index/LoginForm";
-import { Moon, Sun } from "lucide-react";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleTheme } from "../store/themeSlice";
+import Connectivity from "@/components/Connectivity"
+import LoginForm from "@/components/Index/LoginForm"
+import { Moon, Sun } from "lucide-react"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
+import { useSelector, useDispatch } from "react-redux"
+import { toggleTheme } from "../store/themeSlice"
 
-import io from "socket.io-client";
-import { RootState } from "@/store/store";
+import io from "socket.io-client"
+import { RootState } from "@/store/store"
 
 export default function Home() {
   const [connectivityStatus, setConnectivityStatus] =
-    useState<string>("DISCONNECTED");
+    useState<string>("DISCONNECTED")
 
-  const [data, setData] = useState<number>(10);
-  const mode = useSelector((state: RootState) => state.theme.mode);
-  const dispatch = useDispatch();
+  const [data, setData] = useState<number>(10)
+  const mode = useSelector((state: RootState) => state.theme.mode)
+  const dispatch = useDispatch()
 
-  const router = useRouter();
+  const router = useRouter()
 
   const handleLogin = () => {
-    router.push("/chat");
-  };
+    router.push("/chat")
+  }
 
   const toggleMode = () => {
-    dispatch(toggleTheme());
-  };
+    dispatch(toggleTheme())
+  }
 
   useEffect(() => {
-    const socket = io("http://localhost:8000");
+    const socket = io("http://localhost:8000")
     socket.on("connect", () => {
-      console.log("Socket.IO connected");
-      setConnectivityStatus("STABLE");
-    });
+      console.log("Socket.IO connected")
+      setConnectivityStatus("CONNECTED")
+    })
     socket.on("randomData", (data: any) => {
-      const randomNumber = parseInt(data.randomNumber);
-      setData(randomNumber);
-    });
+      const randomNumber = parseInt(data.randomNumber)
+      setData(randomNumber)
+    })
     return () => {
-      socket.close();
-    };
-  }, []);
+      socket.close()
+    }
+  }, [])
 
   return (
     <div className={`flex `}>
-      <div className="flex w-screen h-screen justify-center items-center">
-        <div className="rounded border border-slate-600 p-10 shadow-lg shadow-purple-900 relative lg:w-1/4 w-11/12">
-          <button className="absolute top-4 right-4" onClick={toggleMode}>
+      <div className="flex h-screen w-screen items-center justify-center">
+        <div className="relative w-11/12 rounded border border-slate-600 p-10 shadow-lg shadow-purple-900 lg:w-1/4">
+          <button className="absolute right-4 top-4" onClick={toggleMode}>
             {mode === "dark" ? <Moon /> : <Sun />}
           </button>
-          <h1 className="text-center lg:text-6xl text-4xl mb-4">
-            <span className="text-sky-600 font-bold">Talk</span>
-            <span className="text-purple-800 font-bold">Box</span>
+          <h1 className="mb-4 text-center text-4xl lg:text-6xl">
+            <span className="font-bold text-sky-600">Talk</span>
+            <span className="font-bold text-purple-800">Box</span>
           </h1>
           <LoginForm onSubmit={handleLogin} />
           <div className="mt-4">
@@ -64,5 +64,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  );
+  )
 }

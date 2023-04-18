@@ -37,7 +37,7 @@ const InputChat = ({
           <div className="mr-4 flex-grow">
             <div className="flex items-center rounded-full border-[1.5px] border-sky-800/80 shadow-md">
               <input
-                className="w-full rounded-full px-4 py-4 leading-tight text-neutral-700 focus:outline-none"
+                className="w-full rounded-full px-4 py-4 leading-tight text-zinc-50 focus:outline-none"
                 type="text"
                 placeholder="Type your message here..."
                 value={message}
