@@ -37,6 +37,8 @@
   },
   "devDependencies": {
     "date-fns": "^2.29.3",
+    "prettier": "^2.8.7",
+    "prettier-plugin-tailwindcss": "^0.2.7",
     "socket.io-client": "^4.6.1",
     "tailwind-scrollbar": "^3.0.0"
   }

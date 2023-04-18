@@ -1,43 +1,43 @@
-import { SetStateAction, useState } from "react";
-import { Send } from "lucide-react";
+import { SetStateAction, useState } from "react"
+import { Send } from "lucide-react"
 
 const InputChat = ({
   onSendMessage,
 }: {
-  onSendMessage: (message: { id: number; message: string }) => void;
+  onSendMessage: (message: { id: number; message: string }) => void
 }) => {
-  const [message, setMessage] = useState<any>();
+  const [message, setMessage] = useState<any>()
 
   const handleChange = (event: {
-    target: { value: SetStateAction<string> };
+    target: { value: SetStateAction<string> }
   }) => {
-    setMessage(event.target.value);
-  };
+    setMessage(event.target.value)
+  }
 
   const handleSend = () => {
     const newMessage = {
       id: Date.now(),
       message,
-    };
-    console.log(newMessage);
-    onSendMessage(newMessage);
-    setMessage("");
-  };
+    }
+    console.log(newMessage)
+    onSendMessage(newMessage)
+    setMessage("")
+  }
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
-      handleSend();
+      handleSend()
     }
-  };
+  }
 
   return (
-    <div className="flex items-center w-11/12 sm:w-10/12 h-full">
-      <div className="flex mr-4 w-full items-center">
-        <div className="flex items-center w-11/12 sm:w-10/12 h-full mx-auto">
-          <div className="flex-grow mr-4">
-            <div className="border-[1.5px] border-sky-800/80 rounded-full shadow-md flex items-center">
+    <div className="flex h-full w-11/12 items-center sm:w-10/12">
+      <div className="mr-4 flex w-full items-center">
+        <div className="mx-auto flex h-full w-11/12 items-center sm:w-10/12">
+          <div className="mr-4 flex-grow">
+            <div className="flex items-center rounded-full border-[1.5px] border-sky-800/80 shadow-md">
               <input
-                className="rounded-full w-full px-4 py-4 text-neutral-700 leading-tight focus:outline-none"
+                className="w-full rounded-full px-4 py-4 leading-tight text-neutral-700 focus:outline-none"
                 type="text"
                 placeholder="Type your message here..."
                 value={message}
@@ -47,7 +47,7 @@ const InputChat = ({
             </div>
           </div>
           <button
-            className="text-sky-600 hover:text-sky-400 font-bold"
+            className="font-bold text-sky-600 hover:text-sky-400"
             onClick={handleSend}
           >
             <Send />
@@ -55,7 +55,7 @@ const InputChat = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default InputChat;
+export default InputChat

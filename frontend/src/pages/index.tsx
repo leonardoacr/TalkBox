@@ -1,5 +1,5 @@
 import Connectivity from "@/components/Connectivity";
-import LoginForm from "@/components/index/LoginForm";
+import LoginForm from "@/components/Index/LoginForm";
 import { Moon, Sun } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
