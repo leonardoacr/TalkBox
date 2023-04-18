@@ -12,10 +12,8 @@ function App({ Component, pageProps }: AppProps) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("_app: " + mode);
     if (localStorage.getItem("theme")) {
       const savedTheme = localStorage.getItem("theme") as "dark" | "light";
-      console.log("ta aqui?" + savedTheme);
       dispatch(setTheme(savedTheme));
     } else {
       localStorage.setItem("theme", "dark");

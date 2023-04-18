@@ -3,10 +3,12 @@ import { combineReducers } from "redux";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import themeReducer from "./themeSlice";
 import isDesktopReducer from "./isDesktopSlice";
+import connectivityReducer from "./connectivitySlice";
 
 const rootReducer = combineReducers({
     theme: themeReducer,
     isDesktop: isDesktopReducer,
+    connectivity: connectivityReducer
     // Add other reducers here
 });
 

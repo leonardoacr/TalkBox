@@ -1,46 +1,33 @@
-import Connectivity from "@/components/Connectivity"
-import LoginForm from "@/components/Index/LoginForm"
-import { Moon, Sun } from "lucide-react"
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { toggleTheme } from "../store/themeSlice"
-
-import io from "socket.io-client"
-import { RootState } from "@/store/store"
+import Connectivity from "@/components/Connectivity";
+import LoginForm from "@/components/Index/LoginForm";
+import { Moon, Sun } from "lucide-react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../store/themeSlice";
+import { RootState } from "@/store/store";
+import useConnectSocketIO from "@/hooks/connectSocketIO";
 
 export default function Home() {
-  const [connectivityStatus, setConnectivityStatus] =
-    useState<string>("DISCONNECTED")
+  const connectivityStatus = useSelector(
+    (state: RootState) => state.connectivity.status
+  );
 
-  const [data, setData] = useState<number>(10)
-  const mode = useSelector((state: RootState) => state.theme.mode)
-  const dispatch = useDispatch()
+  const uri = "http://localhost:8000";
+  useConnectSocketIO(uri);
 
-  const router = useRouter()
+  const mode = useSelector((state: RootState) => state.theme.mode);
+  const dispatch = useDispatch();
+
+  const router = useRouter();
 
   const handleLogin = () => {
-    router.push("/chat")
-  }
+    router.push("/chat");
+  };
 
   const toggleMode = () => {
-    dispatch(toggleTheme())
-  }
-
-  useEffect(() => {
-    const socket = io("http://localhost:8000")
-    socket.on("connect", () => {
-      console.log("Socket.IO connected")
-      setConnectivityStatus("CONNECTED")
-    })
-    socket.on("randomData", (data: any) => {
-      const randomNumber = parseInt(data.randomNumber)
-      setData(randomNumber)
-    })
-    return () => {
-      socket.close()
-    }
-  }, [])
+    dispatch(toggleTheme());
+  };
 
   return (
     <div className={`flex `}>
@@ -64,5 +51,5 @@ export default function Home() {
         </div>
       </div>
     </div>
-  )
+  );
 }
