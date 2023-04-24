@@ -37,7 +37,7 @@ A website with a chat where you can summon the oracle. In a chat with two or mor
 
 ```bash
 # Clone this repository
-$ git clone https://github.com/leonardoacr/real-time-data-transfer-socketio
+$ git clone https://github.com/leonardoacr/TalkBox
 
 # Access the backend folder
 
