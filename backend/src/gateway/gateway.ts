@@ -11,8 +11,8 @@ export class MyGateway implements OnModuleInit {
             console.log('Connected');
         })
         setInterval(() => {
-            const randomNumber = Math.floor(Math.random() * 100);
-            this.server.emit('randomData', { randomNumber });
+            const messageReceived = toString(Math.floor(Math.random() * 100));
+            this.server.emit('chat', { messageReceived });
         }, 1000);
     }
 

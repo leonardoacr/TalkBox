@@ -1,21 +1,30 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { combineReducers } from "redux";
-import { createWrapper, HYDRATE } from "next-redux-wrapper";
-import themeReducer from "./themeSlice";
-import isDesktopReducer from "./isDesktopSlice";
-import connectivityReducer from "./connectivitySlice";
+import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
+import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
+
+import themeReducer from './themeSlice';
+import isDesktopReducer from './isDesktopSlice';
+import connectivityReducer from './connectivitySlice';
 
 const rootReducer = combineReducers({
     theme: themeReducer,
     isDesktop: isDesktopReducer,
-    connectivity: connectivityReducer
-    // Add other reducers here
+    connectivity: connectivityReducer,
 });
+
+const persistConfig = {
+    key: 'root',
+    storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const makeStore = () =>
     configureStore({
-        reducer: rootReducer,
-        devTools: process.env.NODE_ENV !== "production",
+        reducer: persistedReducer,
+        devTools: process.env.NODE_ENV !== 'production',
     });
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -34,5 +43,7 @@ const reducer = (state: RootState, action: any) => {
 export const wrapper = createWrapper(makeStore, { debug: true });
 
 export const store = makeStore();
+
+export const persistor = persistStore(store);
 
 export default store;

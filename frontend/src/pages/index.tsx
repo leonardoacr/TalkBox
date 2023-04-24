@@ -4,25 +4,32 @@ import { Moon, Sun } from "lucide-react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { toggleTheme } from "../store/themeSlice";
+import { setTheme, toggleTheme } from "../store/themeSlice";
 import { RootState } from "@/store/store";
 import useConnectSocketIO from "@/hooks/connectSocketIO";
+import { ConnectivityState } from "@/store/connectivitySlice";
 
 export default function Home() {
   const connectivityStatus = useSelector(
-    (state: RootState) => state.connectivity.status
+    (state: RootState) => state.connectivity.status as ConnectivityState
   );
 
-  const uri = "http://localhost:8000";
-  useConnectSocketIO(uri);
+  useEffect(() => {
+    console.log("Current connectivity status:", connectivityStatus);
+  }, [connectivityStatus]);
 
+  console.log("conect? ", connectivityStatus);
   const mode = useSelector((state: RootState) => state.theme.mode);
   const dispatch = useDispatch();
 
   const router = useRouter();
 
   const handleLogin = () => {
-    router.push("/chat");
+    if (connectivityStatus === "DISCONNECTED") {
+      router.push("/chat");
+    } else {
+      return alert("Server Offline, please try Again Later.");
+    }
   };
 
   const toggleMode = () => {

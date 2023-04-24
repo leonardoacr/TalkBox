@@ -1,25 +1,25 @@
-import { Webhook } from "lucide-react"
-import { format } from "date-fns"
-import React, { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
-import { RootState } from "@/store/store"
+import { Webhook } from "lucide-react";
+import { format } from "date-fns";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 export type Message = {
-  id: number
-  message: string
-  received?: boolean
-  receivedAt?: Date
-  username?: string
-}
+  id: number;
+  message: string;
+  received?: boolean;
+  receivedAt?: Date;
+  username?: string;
+};
 
 type MessagesChatProps = {
-  messages: Message[]
-  username: string
-}
+  messages: Message[];
+  username: string;
+};
 
 const MessagesChat: React.FC<MessagesChatProps> = ({ messages, username }) => {
-  const [receivedMessages, setReceivedMessages] = useState<Message[]>([])
-  const isDesktop = useSelector((state: RootState) => state.isDesktop.value)
+  const [receivedMessages, setReceivedMessages] = useState<Message[]>([]);
+  const isDesktop = useSelector((state: RootState) => state.isDesktop.value);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -29,21 +29,20 @@ const MessagesChat: React.FC<MessagesChatProps> = ({ messages, username }) => {
         received: true,
         receivedAt: new Date(),
         username: "Sender",
-      }
-      setReceivedMessages([...receivedMessages, newMessage])
-    }, 3000)
-
-    return () => clearInterval(interval)
-  }, [messages, receivedMessages])
+      };
+      setReceivedMessages([...receivedMessages, newMessage]);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [messages, receivedMessages]);
 
   const allMessages = [...messages, ...receivedMessages].sort((a, b) => {
     // Sort the messages based on the timestamp they were received
     if (a.receivedAt && b.receivedAt) {
-      return b.receivedAt.getTime() - a.receivedAt.getTime()
+      return b.receivedAt.getTime() - a.receivedAt.getTime();
     } else {
-      return b.id - a.id // If timestamps are missing, sort by ID
+      return b.id - a.id; // If timestamps are missing, sort by ID
     }
-  })
+  });
 
   return (
     <div
@@ -58,9 +57,9 @@ const MessagesChat: React.FC<MessagesChatProps> = ({ messages, username }) => {
         // Set the maximum width of the message based on its length
         const maxWidth = isDesktop
           ? Math.min(message.message.length * 15, (2 / 3) * 700)
-          : Math.min(message.message.length * 10, (2 / 3) * 900)
+          : Math.min(message.message.length * 10, (2 / 3) * 900);
 
-        const minWidth = isDesktop ? "10rem" : "12rem"
+        const minWidth = isDesktop ? "10rem" : "12rem";
 
         return (
           <div
@@ -87,10 +86,10 @@ const MessagesChat: React.FC<MessagesChatProps> = ({ messages, username }) => {
               <span>{message.message}</span>
             </div>
           </div>
-        )
+        );
       })}
     </div>
-  )
-}
+  );
+};
 
-export default MessagesChat
+export default MessagesChat;

@@ -14,6 +14,15 @@ const Chat: React.FC<ChatProps> = () => {
   const [sentMessages, setSentMessages] = useState<Message[]>([]);
   const isDesktop = useSelector((state: RootState) => state.isDesktop.value);
   const mode = useSelector((state: RootState) => state.theme.mode);
+  const connectivityStatus = useSelector(
+    (state: RootState) => state.connectivity.status
+  );
+
+  useEffect(() => {
+    console.log("Current connectivity status:", connectivityStatus);
+  }, [connectivityStatus]);
+
+  console.log("conect? ", connectivityStatus);
 
   const dispatch = useDispatch();
 

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-type ConnectivityState = 'CONNECTED' | 'DISCONNECTED'
+export type ConnectivityState = 'CONNECTED' | 'DISCONNECTED'
 
 interface Connectivity {
     status: ConnectivityState
