@@ -28,7 +28,7 @@ A website with a chat where you can summon the oracle. In a chat with two or mor
 
 ### Frontend
 
-✔️ TypeScript | ✔️ ReactJS | ✔️ NextJS | ✔️ TailwindCSS
+✔️ TypeScript | ✔️ ReactJS | ✔️ NextJS | ✔️ Redux | ✔️ TailwindCSS
 
 <br>
 <div id="running_backend">
